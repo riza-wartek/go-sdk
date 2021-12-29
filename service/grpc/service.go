@@ -82,6 +82,12 @@ func (s *Server) Start() error {
 	return gs.Serve(s.listener)
 }
 
+// Start registers with server the server and starts it.
+func (s *Server) StartWithServer(gs *grpc.Server) error {
+	pb.RegisterAppCallbackServer(gs, s)
+	return gs.Serve(s.listener)
+}
+
 // Stop stops the previously started service.
 func (s *Server) Stop() error {
 	return s.listener.Close()
